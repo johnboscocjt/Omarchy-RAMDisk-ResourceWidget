@@ -2,6 +2,8 @@
 
 An Omarchy top-bar widget that displays RAM and root disk usage and opens a details popup when clicked.
 
+![RAM and disk widgets in the Omarchy top bar](preview.png)
+
 ## Features
 
 - RAM used/total and usage percentage.
