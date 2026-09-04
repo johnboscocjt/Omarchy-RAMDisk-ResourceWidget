@@ -36,13 +36,6 @@ rm -rf ~/.config/omarchy/plugins/io.github.johnboscocjt.ramdisk
 omarchy restart shell
 ```
 
-## Development
+## Permissions
 
-Validate the repository before submitting changes:
-
-```sh
-omarchy plugin validate .
-qmllint -I "$OMARCHY_PATH/shell" BarWidget.qml
-```
-
-The plugin runs inside the existing Omarchy shell with the current user's permissions. Review the source before installing it.
+The plugin runs inside the existing Omarchy shell with the current user's permissions. It reads `/proc/meminfo` and root filesystem statistics through `df`; it does not use network access, privileged commands, background services, or configuration writes.

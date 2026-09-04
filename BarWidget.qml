@@ -84,6 +84,9 @@ BarWidget {
       tooltipText: "RAM " + root.ramPercent + " used · click for details"
       horizontalMargin: 4
       verticalPadding: 6
+      onPressed: function(button) {
+        if (button === Qt.LeftButton) root.popupOpen = !root.popupOpen
+      }
     }
 
     WidgetButton {
@@ -94,13 +97,10 @@ BarWidget {
       tooltipText: "Disk " + root.diskPercent + " used · click for details"
       horizontalMargin: 4
       verticalPadding: 6
+      onPressed: function(button) {
+        if (button === Qt.LeftButton) root.popupOpen = !root.popupOpen
+      }
     }
-  }
-
-  MouseArea {
-    anchors.fill: row
-    cursorShape: Qt.PointingHandCursor
-    onClicked: root.popupOpen = !root.popupOpen
   }
 
   PopupCard {
