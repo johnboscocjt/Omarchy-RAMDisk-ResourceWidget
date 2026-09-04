@@ -19,6 +19,11 @@ BarWidget {
   property string diskFree: "--"
   property string diskPercent: "--"
   property bool popupOpen: false
+  readonly property bool opened: popupOpen
+
+  function open() { popupOpen = true }
+  function close() { popupOpen = false }
+  function toggle() { popupOpen = !popupOpen }
 
   implicitWidth: row.implicitWidth + Style.space(12)
   implicitHeight: barSize
@@ -85,7 +90,7 @@ BarWidget {
       horizontalMargin: 4
       verticalPadding: 6
       onPressed: function(button) {
-        if (button === Qt.LeftButton) root.popupOpen = !root.popupOpen
+        if (button === Qt.LeftButton) root.toggle()
       }
     }
 
@@ -98,7 +103,7 @@ BarWidget {
       horizontalMargin: 4
       verticalPadding: 6
       onPressed: function(button) {
-        if (button === Qt.LeftButton) root.popupOpen = !root.popupOpen
+        if (button === Qt.LeftButton) root.toggle()
       }
     }
   }
