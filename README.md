@@ -1,38 +1,46 @@
-# Omarchy-RAMDisk-ResourceWidget
+# Omarchy RAMDisk Resource Widget
 
-Two independent Omarchy bar widgets for a top-bar resource monitor:
+An Omarchy top-bar widget that displays RAM and root disk usage and opens a details popup when clicked.
 
-- `jbtechnix.ram`: RAM used/total in the bar; click for available memory, percentage, and swap details.
-- `jbtechnix.disk`: root disk used/total in the bar; click for free space, percentage, and mount details.
+## Features
 
-Both widgets refresh every five seconds and use only user-level data sources: `/proc/meminfo` and `df`. They do not start services or require privileges.
+- RAM used/total and usage percentage.
+- Root disk used/total and usage percentage.
+- Popup details for available RAM, swap, free disk space, and the root mount.
+- Five-second refresh interval.
+- Uses `/proc/meminfo` and `df` only.
+- No background service, network access, privileged command, or configuration overwrite.
 
-## Local install
+## Install
 
-Copy the plugin folders into the user plugin directory:
+Install from the repository root:
 
 ```sh
-mkdir -p ~/.config/omarchy/plugins
-cp -a plugins/jbtechnix.ram plugins/jbtechnix.disk ~/.config/omarchy/plugins/
-omarchy plugin validate ~/.config/omarchy/plugins/jbtechnix.ram
-omarchy plugin validate ~/.config/omarchy/plugins/jbtechnix.disk
-omarchy plugin enable jbtechnix.ram --section left --index 2
-omarchy plugin enable jbtechnix.disk --section left --index 3
-omarchy bar move jbtechnix.ram --section left --index 2
-omarchy bar move jbtechnix.disk --section left --index 3
+mkdir -p ~/.config/omarchy/plugins/io.github.johnboscocjt.ramdisk
+cp manifest.json BarWidget.qml ~/.config/omarchy/plugins/io.github.johnboscocjt.ramdisk/
+omarchy plugin validate ~/.config/omarchy/plugins/io.github.johnboscocjt.ramdisk
+omarchy plugin enable io.github.johnboscocjt.ramdisk
+omarchy bar move io.github.johnboscocjt.ramdisk --section left --index 2
 omarchy restart shell
 ```
 
-The intended default placement is after the menu and workspaces. Omarchy does not currently provide freehand drag-and-drop for bar widgets; use `omarchy bar move` to place each widget independently in `left`, `center`, or `right`.
+The widget is intended to appear after the menu and workspaces. Omarchy bar placement uses `omarchy bar move`; it does not currently provide freehand drag-and-drop for widgets.
+
+## Remove
+
+```sh
+omarchy plugin disable io.github.johnboscocjt.ramdisk
+rm -rf ~/.config/omarchy/plugins/io.github.johnboscocjt.ramdisk
+omarchy restart shell
+```
 
 ## Development
 
-Edit the QML files under `~/.config/omarchy/plugins/`. Changes hot-reload in the Omarchy shell. Validate each plugin after editing:
+Validate the repository before submitting changes:
 
 ```sh
-omarchy plugin validate plugins/jbtechnix.ram
-omarchy plugin validate plugins/jbtechnix.disk
-journalctl --user -u omarchy-shell --since '5 minutes ago' --no-pager
+omarchy plugin validate .
+qmllint -I "$OMARCHY_PATH/shell" BarWidget.qml
 ```
 
-The plugin IDs are intentionally namespaced under `jbtechnix` for local development. Rename them before marketplace submission if a different publisher namespace is required.
+The plugin runs inside the existing Omarchy shell with the current user's permissions. Review the source before installing it.

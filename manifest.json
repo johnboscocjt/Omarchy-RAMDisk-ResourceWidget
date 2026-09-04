@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.johnboscocjt.ramdisk",
+  "name": "RAMDisk Resource Widget",
+  "version": "1.0.0",
+  "author": "jbtechnix",
+  "description": "Live RAM and root disk usage in the Omarchy bar with a details popup.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {"barWidget": "BarWidget.qml"},
+  "barWidget": {
+    "displayName": "RAMDisk resources",
+    "description": "RAM and root disk usage with free-space details.",
+    "category": "System",
+    "allowMultiple": false
+  }
+}
